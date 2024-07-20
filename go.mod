@@ -1,6 +1,8 @@
 module github.com/LeonAdato/xk6-output-statsd
 
-go 1.20
+go 1.21
+
+toolchain go1.22.1
 
 require (
 	github.com/DataDog/datadog-go v4.8.3+incompatible

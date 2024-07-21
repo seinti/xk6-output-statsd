@@ -18,11 +18,16 @@ func New(params output.Params) (output.Output, error) {
 }
 
 func newOutput(params output.Params) (*Output, error) {
+	logger := params.Logger.WithFields(logrus.Fields{"output": "statsd"})
 	conf, err := getConsolidatedConfig(params.JSONConfig, params.Environment, params.ConfigArgument)
+
+	logger.Warnf("JSONConfig: %+v", params.JSONConfig)
+	logger.Warnf("Environment: %+v", params.Environment)
+	logger.Warnf("ConfigArgument: %+v", params.ConfigArgument)
+
 	if err != nil {
 		return nil, err
 	}
-	logger := params.Logger.WithFields(logrus.Fields{"output": "statsd"})
 
 	return &Output{
 		config: conf,

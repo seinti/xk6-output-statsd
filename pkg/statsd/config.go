@@ -2,7 +2,6 @@ package statsd
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 
 	"github.com/mstoykov/envconfig"
@@ -80,8 +79,6 @@ func getConsolidatedConfig(jsonRawConf json.RawMessage, env map[string]string, _
 		result = result.Apply(jsonConf)
 	}
 
-	fmt.Printf("new config: %+v\n", result)
-
 	envConfig := config{}
 	_ = env // TODO: get rid of envconfig and actually use the env parameter...
 	if err := envconfig.Process("", &envConfig, func(key string) (string, bool) {
@@ -90,8 +87,6 @@ func getConsolidatedConfig(jsonRawConf json.RawMessage, env map[string]string, _
 	}); err != nil {
 		return result, err
 	}
-
-	fmt.Printf("env config: %+v\n", envConfig)
 
 	result = result.Apply(envConfig)
 
